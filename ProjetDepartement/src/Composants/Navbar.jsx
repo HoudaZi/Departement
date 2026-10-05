@@ -4,16 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import logo from '../assets/logo.png'
 
 const Header = () => {
+
   const navigate = useNavigate()
-
-  // 1. التحقق واش المستخدم متصل عبر قراءة الإيميل من localStorage
   const userEmail = localStorage.getItem('userEmail') 
-  const isConnected = !!userEmail // غاتعطينا true يلا كان متصل و false يلا كان خارج
+  const isConnected = !!userEmail
 
-  // 2. دالة تسجيل الخروج (Déconnexion)
   const handleLogout = () => {
-    localStorage.removeItem('userEmail') // مسح الإيميل المخزن
-    navigate('/signin') // الرجوع لصفحة تسجيل الدخول
+    localStorage.removeItem('userEmail')
+    navigate('/')
   }
 
   return (
@@ -30,7 +28,6 @@ const Header = () => {
               style={{ width: '90px', height: '90px', objectFit: 'contain' }} 
             />
           </div>
-
           <span className="fw-bold text-dark fs-4" style={{ letterSpacing: '-0.5px', paddingLeft: '5px' }}>
             Enosis
           </span>
@@ -54,16 +51,13 @@ const Header = () => {
           </Nav>
 
           <Nav className="align-items-center gap-3">
-            {/* 3. شرط: يلا كان متصل نظهرو الإيميل وزر الخروج، وإيلا مكنش نظهرو زر Connexion */}
             {isConnected ? (
               <>
-                <span className="text-muted small d-none d-md-inline">
-                  {userEmail}
-                </span>
                 <Button 
                   variant="outline-danger"
                   className="px-4 py-2 rounded-2 fw-medium shadow-sm"
                   onClick={handleLogout}
+                  
                 >
                   Déconnexion
                 </Button>

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaCar, FaBalanceScale, FaBoxOpen } from 'react-icons/fa'; // Icônes mnasbin l Parc Auto w Juridique
+import { FaCar, FaBalanceScale, FaBoxOpen , FaUsers } from 'react-icons/fa'; // Icônes mnasbin l Parc Auto w Juridique
 import { useState, useEffect } from 'react';
 
 import Header from './Composants/Navbar';
@@ -42,6 +42,16 @@ const departments = [
     description: 'Gestion des flux de marchandises, approvisionnements, suivi des stocks, des livraisons et optimisation de la chaîne logistique...',
     footerText: '📦 Logistique',
     category: 'Logistique'
+  },
+  {
+    icon: <FaUsers size={24} style={{ color: '#7c3aed' }} />,
+    iconBg: '#f3e8ff',
+    status: 'Operational',
+    statusVariant: 'success', 
+    title: 'Ressources Humaines',
+    description: 'Gestion du personnel, des recrutements, des carrières, de la paie et du développement des compétences des collaborateurs...', // Nouvelle description adaptée
+    footerText: '👥 Ressources Humaines',
+    category: 'Ressources Humaines'
   }
 ]
 

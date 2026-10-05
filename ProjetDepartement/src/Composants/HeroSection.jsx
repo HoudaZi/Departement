@@ -9,7 +9,7 @@ const HeroSection = ({ searchTerm, setSearchTerm, activeFilter, setActiveFilter 
     'Parc auto',
     'Juridique',
     'Logistique',
-    'Opérations',
+    'Ressources Humaines',
     'Marketing'
   ]
 
@@ -31,7 +31,7 @@ const HeroSection = ({ searchTerm, setSearchTerm, activeFilter, setActiveFilter 
           </span>
         </div>
 
-        <h1 className="fw-bold display-5 text-dark mb-2" style={{ letterSpacing: '-1px' }}>
+        <h1 className="fw-bold display-5 text-dark mb-2" style={{ letterSpacing: '-1px' , fontSize : '40px'}}>
           Portail des Départements
         </h1>
 

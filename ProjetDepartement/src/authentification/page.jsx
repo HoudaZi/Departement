@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Card, Form, Button, Modal, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import logo from '../assets/logo.png'
@@ -7,65 +7,36 @@ import logo from '../assets/logo.png'
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  
-  const [showVerifyModal, setShowVerifyModal] = useState(false)
-  const [code, setCode] = useState('')
   const [loading, setLoading] = useState(false)
-  const [alertMessage, setAlertMessage] = useState('')
-  const [alertVariant, setAlertVariant] = useState('info')
   
   const navigate = useNavigate()
 
   const handleLoginSubmit = async (e) => {
-  e.preventDefault()
-  setLoading(true)
-  setAlertMessage('')
-
-  try {
-    const response = await fetch('http://localhost:5000/api/send-code', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    })
-    const data = await response.json();
-    if (response.ok) {
-      localStorage.setItem('userEmail', email)
-      setAlertVariant('success')
-      console.log("Code généré par le serveur :", data.code_pour_test)
-      setShowVerifyModal(true)
-    } else {
-      alert(data.error || "Une erreur est survenue lors de l'envoi du code.");
-    }
-    } catch (error) {
-      alert("Impossible de se connecter au serveur. Assurez-vous que l'application Python est en cours d'exécution.");
-    } finally {
-      setLoading(false)
-    }
-  }
-  const handleVerifyCode = async (e) => {
     e.preventDefault()
     setLoading(true)
+
     try {
-      const response = await fetch('http://localhost:5000/api/verify-code', {
+      const response = await fetch('http://localhost:8000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, code }),
+        body: JSON.stringify({ email, password }),
       })
+
       const data = await response.json()
+
       if (response.ok) {
-        setAlertVariant('success');
-        setAlertMessage('Vérification réussie ! Redirection en cours...')
-        setTimeout(() => {
-          setShowVerifyModal(false)
-          navigate('/dashboard')
-        }, 1500)
+        localStorage.setItem('userEmail', email)
+        localStorage.setItem('username', data.user.username)
+        if (data.user.department) {
+          localStorage.setItem('userDepartment', data.user.department)
+        }
+
+        navigate('/dashboard')
       } else {
-        setAlertVariant('danger')
-        setAlertMessage(data.error || 'Code incorrect ou expiré.')
+        alert(data.error || "Identifiants incorrects.")
       }
     } catch (error) {
-      setAlertVariant('danger')
-      setAlertMessage('Erreur de connexion au serveur.')
+      alert("Impossible de se connecter au serveur. Assurez-vous que l'application Backend est en cours d'exécution.")
     } finally {
       setLoading(false)
     }
@@ -91,26 +62,28 @@ const SignIn = () => {
               </Link>
             </div>
 
-            <Card className="shadow-sm border-0 rounded-4 p-4">
+            <Card className="shadow-sm border-0 rounded-4 ">
               <Card.Body>
-                <div className="text-center mb-4">
+                <div className="text-center">
                   <h3 className="fw-bold text-dark">Connexion</h3>
                   <p className="text-muted small">Entrez vos coordonnées pour accéder à votre espace</p>
                 </div>
 
                 <Form onSubmit={handleLoginSubmit}>
                   <Form.Group className="mb-3 text-start" controlId="formEmail">
-                    <Form.Label className="fw-medium text-secondary small text-start d-block">
-                      Adresse Email
-                    </Form.Label>
-                    <Form.Control 
-                      type="email" 
-                      placeholder="nom@enosis.com" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="py-2"
-                    />
+                    <Form.Group className="mb-3 text-start" controlId="formEmail">
+                      <Form.Label className="fw-medium text-secondary small text-start d-block">
+                        Adresse Email
+                      </Form.Label>
+                      <Form.Control 
+                        type="email" 
+                        placeholder="nom@enosis.com" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="py-2"
+                      />
+                    </Form.Group>
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="formPassword">
                     <div className="d-flex justify-content-between align-items-center">
@@ -134,7 +107,7 @@ const SignIn = () => {
                     className="w-100 py-2 fw-medium rounded-2 shadow-sm mt-3 border-0"
                     style={{ backgroundColor: '#059669' }}
                   >
-                    {loading ? 'Envoi en cours...' : 'Se connecter'}
+                    {loading ? 'Connexion en cours...' : 'Se connecter'}
                   </Button>
                 </Form>
               </Card.Body>
@@ -155,41 +128,8 @@ const SignIn = () => {
           </Col>
         </Row>
       </Container>
-
-      <Modal show={showVerifyModal} onHide={() => setShowVerifyModal(false)} centered>
-        <Modal.Header closeButton className="border-0 pb-0">
-          <Modal.Title className="fw-bold text-dark fs-5">Code de Vérification</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="px-4 py-3">
-          <p className="text-muted small mb-4">
-            Un code de vérification à 6 chiffres a été envoyé à votre adresse email : <strong>{email}</strong>
-          </p>
-          {alertMessage && <Alert variant={alertVariant} className="py-2 text-center small">{alertMessage}</Alert>}
-          <Form onSubmit={handleVerifyCode}>
-            <Form.Group className="mb-3">
-              <Form.Control
-                type="text"
-                placeholder="123456"
-                maxLength={6}
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                className="text-center py-2 fs-3 fw-bold shadow-none"
-                style={{ letterSpacing: '8px' }}
-                required
-              />
-            </Form.Group>
-            <Button 
-              type="submit" 
-              disabled={loading}
-              className="w-100 py-2 border-0 text-white fw-medium rounded-2"
-              style={{ backgroundColor: '#059669' }}
-            >
-              {loading ? 'Vérification...' : 'Valider & Se connecter'}
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
     </div>
   )
 }
+
 export default SignIn
