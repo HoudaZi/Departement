@@ -13,38 +13,37 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import Footer from './Composants/footer';
-import MyFilterComponent from './Composants/test';
 
 const departments = [
   {
     icon: <FaCar size={24} className="text-primary" />,
-    iconBg: '#e6eeff',
-    status: 'Operational',
-    statusVariant: 'success',
-    title: 'Parc auto',
-    description: 'Gestion de la flotte de véhicules, suivi de l\'entretien, des réservations et des déplacements...',
-    footerText: 'Parc auto',
-    category: 'Parc auto'
+    iconBg: "#e6eeff",
+    status: "Operational",
+    statusVariant: "success",
+    title: "Parc auto",
+    description: "Le département Parc auto gère les véhicules de l'entreprise : réservations, entretien, carburant et sinistres. Il veille à ce que chaque collaborateur dispose d'un véhicule fiable pour ses déplacements professionnels.",
+    footerText: "Parc auto",
+    category: "Parc auto"
   },
   {
     icon: <FaBalanceScale size={24} className="text-success" />,
-    iconBg: '#d1fae5',
-    status: 'Internal Access',
-    statusVariant: 'primary',
-    title: 'Juridique',
-    description: 'Gestion des contrats, dossiers juridiques, conseils légaux et conformité réglementaire...',
-    footerText: 'Juridique',
-    category: 'Juridique'
+    iconBg: "#d1fae5",
+    status: "Internal Access",
+    statusVariant: "primary",
+    title: "Juridique",
+    description: "Le département Juridique conseille l'entreprise sur toutes les questions de droit : contrats, conformité réglementaire et litiges. Il protège les intérêts de l'entreprise et sécurise ses décisions et ses engagements.",
+    footerText: "Juridique",
+    category: "Juridique"
   },
   {
     icon: <FaBoxOpen size={24} style={{ color: '#ea580c' }} />,
-    iconBg: '#ffedd5',
-    status: 'Operational',
-    statusVariant: 'success', 
-    title: 'Logistique',
-    description: 'Gestion des flux de marchandises, approvisionnements, suivi des stocks, des livraisons et optimisation de la chaîne logistique...',
-    footerText: 'Logistique',
-    category: 'Logistique'
+    iconBg: "#ffedd5",
+    status: "Operational",
+    statusVariant: "success", 
+    title: "Contrôle qualité",
+    description: "Le département Contrôle qualité s'assure que les produits, services et processus de l'entreprise respectent les normes et exigences définies. Il réalise les inspections et les audits, puis suit les actions correctives pour garantir une qualité constante.",
+    footerText: "Contrôle qualité",
+    category: "Contrôle qualité"
   }
 ]
 
@@ -82,8 +81,7 @@ function App() {
                 setActiveFilter={setActiveFilter}
               />
               
-              
-              <Container className="py-5" style={{ maxWidth: '1100px' }}>
+              <Container className="" style={{ maxWidth: '1100px' }}>
                 <Row className="g-4">
                   {filteredDepartments.length > 0 ? (
                     filteredDepartments.map((dept, index) => (

@@ -1,4 +1,4 @@
-import { Container, Form, InputGroup, Button } from 'react-bootstrap'
+import { Container, Form, InputGroup, Button, Row, Col } from 'react-bootstrap'
 import { FaSearch } from 'react-icons/fa'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './MarqueeFilters.css'; 
@@ -7,7 +7,7 @@ const HeroSection = ({ searchTerm, setSearchTerm, activeFilter, setActiveFilter 
     'Tous',
     'Parc auto',
     'Juridique',
-    'Logistique',
+    'Contrôle qualité',
     'Ressources Humaines',
     'Marketing'
   ]
@@ -15,19 +15,63 @@ const HeroSection = ({ searchTerm, setSearchTerm, activeFilter, setActiveFilter 
     <section className="py-5 text-center">
       <Container>
         <div className="mb-4">
-          <InputGroup className="shadow-sm rounded-3 overflow-hidden border">
-            <InputGroup.Text className="bg-white border-0 ps-3 text-muted">
-              <FaSearch />
-            </InputGroup.Text>
-            <Form.Control
-              type="text"
-              placeholder="Rechercher des départements, équipes ou services..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="border-0 py-3 shadow-none"
-              style={{ fontSize: '0.95rem' }}
-            />
-          </InputGroup>
+          <Row className="g-2 align-items-center">
+            <Col>
+              <InputGroup className="shadow-sm rounded-pill overflow-hidden border bg-white px-2 py-1 align-items-center">
+                <InputGroup.Text className="bg-transparent border-0 ps-3 text-muted">
+                  <FaSearch />
+                </InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  placeholder="Rechercher des départements, équipes ou services..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="border-0 shadow-none bg-transparent"
+                  style={{ fontSize: '0.95rem' }}
+                />
+                
+                {searchTerm && (
+                  <Button 
+                    variant="link" 
+                    className="text-muted text-decoration-none p-0 me-2" 
+                    onClick={() => setSearchTerm('')}
+                  >
+                    <FaTimes />
+                  </Button>
+                )}
+              </InputGroup>
+            </Col>
+            <Col xs="auto">
+
+                <button>
+                  <span class="span-mother">
+                    <span>R</span>
+                    <span>e</span>
+                    <span>c</span>
+                    <span>h</span>
+                    <span>e</span>
+                    <span>r</span>
+                    <span>c</span>
+                    <span>h</span>
+                    <span>e</span>
+                    <span>r</span>
+                  </span>
+                  <span class="span-mother2">
+                    <span>R</span>
+                    <span>e</span>
+                    <span>c</span>
+                    <span>h</span>
+                    <span>e</span>
+                    <span>r</span>
+                    <span>c</span>
+                    <span>h</span>
+                    <span>e</span>
+                    <span>r</span>
+                  </span>
+                </button>
+
+            </Col>
+          </Row>
         </div>
           <div className="marquee-container py-3">
             <div className="marquee-track">

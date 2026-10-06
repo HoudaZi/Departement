@@ -23,7 +23,6 @@ def login():
     password_saisi = data.get('password')
     if not email_saisi or not password_saisi:
         return jsonify({"error": "L'adresse email et le mot de passe sont requis."}), 400
-
     try:
         connexion = get_db_connection()
         curseur = connexion.cursor(dictionary=True)

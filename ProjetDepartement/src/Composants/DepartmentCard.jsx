@@ -12,7 +12,8 @@ const DepartmentCard = ({
   footerText, 
 }) => {
   return (
-    <Card className="border-0 shadow-sm rounded-4 p-4 h-100 bg-white card-hover-lift"
+    <Card className="border-0 shadow-sm rounded-4 p-4 h-100 card-hover-lift"
+      style={{backgroundColor : 'rgba(251, 254, 251, 1)'}}
     >
       <div>
         <div className="d-flex justify-content-between align-items-center mb-3">
@@ -46,7 +47,7 @@ const DepartmentCard = ({
       </div>
       <div className="pt-3 border-top d-flex align-items-center justify-content-between mt-auto">
         <div className="text-muted d-flex align-items-center gap-1" style={{ fontSize: '0.85rem' }}>
-          Responsable : {footerText}
+           {footerText}
         </div>
         <Button 
           as={Link} 
