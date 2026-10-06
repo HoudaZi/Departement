@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -16,7 +16,7 @@ const SignIn = () => {
     setLoading(true)
 
     try {
-      const response = await fetch('http://localhost:8000/api/login', {
+      const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -25,23 +25,25 @@ const SignIn = () => {
       const data = await response.json()
 
       if (response.ok) {
-        localStorage.setItem('userEmail', email)
+
+        localStorage.setItem('token', data.token) 
+        localStorage.setItem('userEmail', data.user.email)
         localStorage.setItem('username', data.user.username)
+        localStorage.setItem('userId', data.user.id)
+        
         if (data.user.department) {
           localStorage.setItem('userDepartment', data.user.department)
         }
-
         navigate('/dashboard')
       } else {
         alert(data.error || "Identifiants incorrects.")
       }
     } catch (error) {
-      alert("Impossible de se connecter au serveur. Assurez-vous que l'application Backend est en cours d'exécution.")
+      alert("Impossible de se connecter au serveur. Assurez-vous que l'application Backend (Flask) est lancée sur le port 5000.")
     } finally {
       setLoading(false)
     }
   }
-
   return (
     <div className="min-vh-100 d-flex align-items-center justify-content-center py-5">
       <Container>
@@ -61,7 +63,6 @@ const SignIn = () => {
                 </span>
               </Link>
             </div>
-
             <Card className="shadow-sm border-0 rounded-4 ">
               <Card.Body>
                 <div className="text-center">
@@ -71,20 +72,19 @@ const SignIn = () => {
 
                 <Form onSubmit={handleLoginSubmit}>
                   <Form.Group className="mb-3 text-start" controlId="formEmail">
-                    <Form.Group className="mb-3 text-start" controlId="formEmail">
-                      <Form.Label className="fw-medium text-secondary small text-start d-block">
-                        Adresse Email
-                      </Form.Label>
-                      <Form.Control 
-                        type="email" 
-                        placeholder="nom@enosis.com" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="py-2"
-                      />
-                    </Form.Group>
+                    <Form.Label className="fw-medium text-secondary small text-start d-block">
+                      Adresse Email
+                    </Form.Label>
+                    <Form.Control 
+                      type="email" 
+                      placeholder="nom@enosis.com" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="py-2"
+                    />
                   </Form.Group>
+
                   <Form.Group className="mb-3" controlId="formPassword">
                     <div className="d-flex justify-content-between align-items-center">
                       <Form.Label className="fw-medium text-secondary small mb-0">Mot de passe</Form.Label>
@@ -105,7 +105,7 @@ const SignIn = () => {
                     type="submit" 
                     disabled={loading}
                     className="w-100 py-2 fw-medium rounded-2 shadow-sm mt-3 border-0"
-                    style={{ backgroundColor: '#059669' }}
+                    style={{ backgroundColor: '#0A5C2A' }}
                   >
                     {loading ? 'Connexion en cours...' : 'Se connecter'}
                   </Button>
@@ -131,5 +131,4 @@ const SignIn = () => {
     </div>
   )
 }
-
 export default SignIn

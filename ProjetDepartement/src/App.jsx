@@ -5,12 +5,15 @@ import { useState, useEffect } from 'react';
 
 import Header from './Composants/Navbar';
 import HeroSection from './Composants/HeroSection';
-import StatsBar from './Composants/StatsBar';
+import SupportSection from './Composants/StatsBar';
 import DepartmentCard from './Composants/DepartmentCard';
-import SignIn from './authentification/page';
+import SignIn from './authentification/page'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
+import Footer from './Composants/footer';
+import MyFilterComponent from './Composants/test';
 
 const departments = [
   {
@@ -20,7 +23,7 @@ const departments = [
     statusVariant: 'success',
     title: 'Parc auto',
     description: 'Gestion de la flotte de véhicules, suivi de l\'entretien, des réservations et des déplacements...',
-    footerText: '🔒 Parc auto',
+    footerText: 'Parc auto',
     category: 'Parc auto'
   },
   {
@@ -30,7 +33,7 @@ const departments = [
     statusVariant: 'primary',
     title: 'Juridique',
     description: 'Gestion des contrats, dossiers juridiques, conseils légaux et conformité réglementaire...',
-    footerText: '👤 Juridique',
+    footerText: 'Juridique',
     category: 'Juridique'
   },
   {
@@ -40,18 +43,8 @@ const departments = [
     statusVariant: 'success', 
     title: 'Logistique',
     description: 'Gestion des flux de marchandises, approvisionnements, suivi des stocks, des livraisons et optimisation de la chaîne logistique...',
-    footerText: '📦 Logistique',
+    footerText: 'Logistique',
     category: 'Logistique'
-  },
-  {
-    icon: <FaUsers size={24} style={{ color: '#7c3aed' }} />,
-    iconBg: '#f3e8ff',
-    status: 'Operational',
-    statusVariant: 'success', 
-    title: 'Ressources Humaines',
-    description: 'Gestion du personnel, des recrutements, des carrières, de la paie et du développement des compétences des collaborateurs...', // Nouvelle description adaptée
-    footerText: '👥 Ressources Humaines',
-    category: 'Ressources Humaines'
   }
 ]
 
@@ -74,19 +67,21 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+    
+
       <Routes>
         <Route 
           path="/" 
           element={
             <div>
+              <Header />
               <HeroSection 
                 searchTerm={searchTerm} 
                 setSearchTerm={setSearchTerm}
                 activeFilter={activeFilter}
                 setActiveFilter={setActiveFilter}
               />
-              <StatsBar />
+              
               
               <Container className="py-5" style={{ maxWidth: '1100px' }}>
                 <Row className="g-4">
@@ -101,21 +96,25 @@ function App() {
                     ))
                   ) : (
                     <Col xs={12} className="text-center py-4">
-                      <p className="text-muted">Ma l9ina 7ta chi département kay-nasab l-baht dyalk.</p>
+                      <p className="text-muted">On n’a trouvé aucun département qui corresponde à ton sujet de recherche.</p>
                     </Col>
                   )}
                 </Row>
               </Container>
+
+              <SupportSection />
+
+
+              <Footer />
             </div>
           } 
         />
-        <Route path="/directory" element={<div className="p-4">Directory Page</div>} />
-        <Route path="/about" element={<div className="p-4">About Page</div>} />
-        <Route path="/help-center" element={<div className="p-4">Help Center Page</div>} />
-        <Route path="/security" element={<dxiv className="p-4">Security Page</dxiv>} />
-        <Route path="/signin" element={<div className="p-4"> <SignIn/> </div> } />
-
-        <Route path="/acceder" element={<div className="p-4"> <SignIn/> </div> } />
+        <Route           
+          path="/acceder" 
+          element={
+             <SignIn />
+          }
+        />
       </Routes>
     </BrowserRouter>
   )

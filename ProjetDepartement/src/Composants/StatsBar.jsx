@@ -1,73 +1,68 @@
-import React from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import { BsDiagram3, BsShieldCheck, BsLock, BsHeadset } from 'react-icons/bs';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { FaQuestionCircle, FaShieldAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
-const StatsBar = () => {
-  const statsData = [
-    {
-      icon: <BsDiagram3 size={22} style={{ color: '#059669' }} />,
-      iconBg: '#E6F4EA',
-      title: '9 Core',
-      subtitle: 'Global Divisions',
-    },
-    {
-      icon: <BsShieldCheck size={22} style={{ color: '#059669' }} />,
-      iconBg: '#d1fae5',
-      title: '100%',
-      subtitle: 'Core Gateway Live',
-    },
-    {
-      icon: <BsLock size={22} style={{ color: '#059669' }} />,
-      iconBg: '#E6F4EA',
-      title: 'Tier 4 SSO',
-      subtitle: 'Encrypted Protocol',
-    },
-    {
-      icon: <BsHeadset size={22} style={{ color: '#059669' }} />,
-      iconBg: '#E6F4EA',
-      title: '24/7 Desk',
-      subtitle: 'Cross-Hub Support',
-    },
-  ];
-
+export default function SupportSection() {
   return (
-    <div className="py-4">
-      <Container style={{ maxWidth: '1100px' }}>
-        <Card className="border-0 shadow-sm p-3 rounded-4" style={{ backgroundColor: '#f0fdf4' }}>
-          <div>
-            <Row className="g-3 align-items-center">
-              {statsData.map((item, index) => (
-                <Col xs={12} sm={6} lg={3} key={index}>
-                  <div className="d-flex align-items-center gap-3 p-2">
-                    <div 
-                      className="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
-                      style={{ 
-                        width: '48px', 
-                        height: '48px', 
-                        backgroundColor: item.iconBg 
-                      }}
-                    >
-                      {item.icon}
-                    </div>
-                    
-                    <div>
-                      <h5 className="fw-bold mb-0 text-dark fs-5" style={{ letterSpacing: '-0.5px' }}>
-                        {item.title}
-                      </h5>
-                      <small className="text-muted" style={{ fontSize: '0.85rem' }}>
-                        {item.subtitle}
-                      </small>
-                    </div>
-                  </div>
-                </Col>
-              ))}
-            </Row>
-          </div>
-        </Card>
-      </Container>
-    </div>
-  );
-};
+    <Container className="py-4" style={{ maxWidth: '1100px' }}>
+      <Row className="g-4">
+        <Col xs={12} md={6}>
+          <Card className="border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+            <div className="d-flex align-items-start gap-3">
+              <div 
+                className="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                style={{ width: '44px', height: '44px', backgroundColor: '#edf2f7', color: '#4a5568' }}
+              >
+                <FaQuestionCircle size={20} />
+              </div>
+              <div>
+                <h5 className="fw-bold text-dark mb-1" style={{ fontSize: '1.05rem' }}>
+                  Centre d'aide
+                </h5>
+                <p className="text-muted mb-3" style={{ fontSize: '0.85rem', lineHeight: '1.4' }}>
+                  Le Centre d’aide vous accompagne dans l’utilisation quotidienne de la plateforme. Vous y trouverez des guides pratiques et des tutoriels pour vous approprier rapidement chaque espace départemental, ainsi qu’une FAQ répondant aux questions les plus fréquentes. En cas de besoin, vous pouvez facilement soumettre une demande d’assistance et suivre l’avancement de vos tickets en direct auprès de nos équipes support.
+                </p>
+                <Link 
+                  to="/aide" 
+                  className="fw-semibold text-decoration-none" 
+                  style={{ color: '#059669', fontSize: '0.85rem' }}
+                >
+                  Ouvrir le centre d'aide
+                </Link>
+              </div>
+            </div>
+          </Card>
+        </Col>
 
-export default StatsBar;
+        <Col xs={12} md={6}>
+          <Card className="border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+            <div className="d-flex align-items-start gap-3">
+              <div 
+                className="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                style={{ width: '44px', height: '44px', backgroundColor: '#e6f4ea', color: '#059669' }}
+              >
+                <FaShieldAlt size={20} />
+              </div>
+              <div>
+                <h5 className="fw-bold text-dark mb-1" style={{ fontSize: '1.05rem' }}>
+                  Sécurité & accès
+                </h5>
+                <p className="text-muted mb-3" style={{ fontSize: '0.85rem', lineHeight: '1.4' }}>
+                  La rubrique Sécurité & accès vous permet de visualiser et gérer l'ensemble de vos droits d’accès aux différents portails de l'entreprise. Si vous avez besoin de consulter des informations restreintes, formulez directement une demande d’autorisation pour débloquer l’espace souhaité. Retrouvez également dans cet espace l’ensemble des règles de confidentialité et la politique de sécurité garantissant la protection des données de chaque département.
+                </p>
+                <Link 
+                  to="/acces" 
+                  className="fw-semibold text-decoration-none" 
+                  style={{ color: '#059669', fontSize: '0.85rem' }}
+                >
+                  Voir mes accès
+                </Link>
+              </div>
+            </div>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  )
+}

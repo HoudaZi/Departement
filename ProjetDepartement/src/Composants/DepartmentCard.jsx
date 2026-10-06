@@ -1,7 +1,7 @@
 import { Card, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from 'react-router-dom'
-
+import './MarqueeFilters.css'; 
 const DepartmentCard = ({ 
   icon, 
   iconBg, 
@@ -10,10 +10,10 @@ const DepartmentCard = ({
   title, 
   description, 
   footerText, 
-  onAccess 
 }) => {
   return (
-    <Card className="border-0 shadow-sm rounded-4 p-4 h-100 bg-white d-flex flex-column justify-content-between department-card">
+    <Card className="border-0 shadow-sm rounded-4 p-4 h-100 bg-white card-hover-lift"
+    >
       <div>
         <div className="d-flex justify-content-between align-items-center mb-3">
           <div 
@@ -44,16 +44,15 @@ const DepartmentCard = ({
           {description}
         </p>
       </div>
-
       <div className="pt-3 border-top d-flex align-items-center justify-content-between mt-auto">
         <div className="text-muted d-flex align-items-center gap-1" style={{ fontSize: '0.85rem' }}>
-          {footerText}
+          Responsable : {footerText}
         </div>
         <Button 
           as={Link} 
           to="/acceder"
           className="rounded-2 px-3 py-2 fw-medium border-0 d-flex align-items-center gap-1 shadow-sm text-decoration-none text-white"
-          style={{ backgroundColor: '#059669', fontSize: '0.85rem' }}
+          style={{ backgroundColor: '#0A5C2A', fontSize: '0.85rem' }}
         >
           Accéder &rarr;
         </Button>
@@ -61,5 +60,4 @@ const DepartmentCard = ({
     </Card>
   )
 }
-
 export default DepartmentCard
