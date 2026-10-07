@@ -14,6 +14,8 @@ import './App.css';
 
 import Footer from './Composants/footer';
 
+ 
+
 const departments = [
   {
     icon: <FaCar size={24} className="text-primary" />,
@@ -50,16 +52,20 @@ const departments = [
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('Tous');
-  const [filteredDepartments, setFilteredDepartments] = useState(departments);
+  const [filteredDepartments, setFilteredDepartments] = useState(departments)
+
 
   useEffect(() => {
     const result = departments.filter((dept) => {
-    const matchesSearch = dept.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        dept.description.toLowerCase().includes(searchTerm.toLowerCase())
+      const matchesSearch = dept.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            dept.description.toLowerCase().includes(searchTerm.toLowerCase())
       
-    const matchesFilter = activeFilter === 'Tous' || dept.category === activeFilter;
-    return matchesSearch && matchesFilter
-  })
+  
+      const matchesFilter = activeFilter === 'Tous' || 
+                            dept.category.toLowerCase().trim() === activeFilter.toLowerCase().trim();
+      
+      return matchesSearch && matchesFilter
+    })
 
     setFilteredDepartments(result);
   }, [searchTerm, activeFilter]);
@@ -103,7 +109,7 @@ function App() {
               <SupportSection />
 
 
-              <Footer />
+  
             </div>
           } 
         />
@@ -114,6 +120,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }

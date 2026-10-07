@@ -1,5 +1,5 @@
-import { Container, Form, InputGroup, Button, Row, Col } from 'react-bootstrap'
-import { FaSearch } from 'react-icons/fa'
+import { Container, Form, InputGroup, Button, Row, Col, } from 'react-bootstrap'
+import { FaSearch, FaTimes } from 'react-icons/fa'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './MarqueeFilters.css'; 
 const HeroSection = ({ searchTerm, setSearchTerm, activeFilter, setActiveFilter }) => {
@@ -11,6 +11,10 @@ const HeroSection = ({ searchTerm, setSearchTerm, activeFilter, setActiveFilter 
     'Ressources Humaines',
     'Marketing'
   ]
+   
+
+
+
   return (
     <section className="py-5 text-center">
       <Container>
@@ -44,7 +48,7 @@ const HeroSection = ({ searchTerm, setSearchTerm, activeFilter, setActiveFilter 
             <Col xs="auto">
 
                 <button>
-                  <span class="span-mother">
+                  <span className="span-mother">
                     <span>R</span>
                     <span>e</span>
                     <span>c</span>
@@ -56,7 +60,7 @@ const HeroSection = ({ searchTerm, setSearchTerm, activeFilter, setActiveFilter 
                     <span>e</span>
                     <span>r</span>
                   </span>
-                  <span class="span-mother2">
+                  <span className="span-mother2">
                     <span>R</span>
                     <span>e</span>
                     <span>c</span>

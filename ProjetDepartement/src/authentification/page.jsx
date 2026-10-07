@@ -2,12 +2,17 @@ import { useState } from 'react'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import logo from '../assets/logo.png'
+import Header from './header'
+import StarButton from './StarButton'
+import './StarButton.css'
+import logo from '../assets/logo2.png';
+import { User, Lock, Eye, EyeOff, LogIn, ArrowLeft, Building2} from 'lucide-react';
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
 
   const handleLoginSubmit = async (e) => {
@@ -16,88 +21,112 @@ const SignIn = () => {
   }
   
   return (
-    <div className="min-vh-100 d-flex align-items-center justify-content-center py-5">
-      <Container>
-        <Row className="justify-content-center">
-          <Col md={6} lg={5}>
-            <div className="text-center mb-4">
-              <Link to="/" className="d-inline-flex align-items-center gap-2 text-decoration-none">
-                <div className="d-flex align-items-center justify-content-center rounded">
-                  <img 
-                    src={logo} 
-                    alt="Enosis Logo" 
-                    style={{ width: '100px', height: '100px', objectFit: 'contain' }} 
-                  />
-                </div>
-                <span className="fw-bold text-dark fs-5" style={{ letterSpacing: '-0.5px' }}>
-                  Enosis
-                </span>
-              </Link>
-            </div>
-            <Card className="shadow-sm border-0 rounded-4 ">
-              <Card.Body>
-                <div className="text-center">
-                  <h3 className="fw-bold text-dark">Connexion</h3>
-                  <p className="text-muted small">Entrez vos coordonnées pour accéder à votre espace</p>
-                </div>
-                <Form onSubmit={handleLoginSubmit}>
-                  <Form.Group className="mb-3 text-start" controlId="formEmail">
-                    <Form.Label className="fw-medium text-secondary small text-start d-block">
-                      Adresse Email
-                    </Form.Label>
-                    <Form.Control 
-                      type="email" 
-                      placeholder="nom@enosis.com" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="py-2"
-                    />
-                  </Form.Group>
+    <div style={{backgroundColor: '#fbfffcff',width: '100%'}} className="min-vh-100 d-flex flex-column">
+      <Header/>
+      <div className="min-vh-100 d-flex align-items-center justify-content-center py-5 bg-light">
+        <Container>
+          <Row className="justify-content-center">
+            <Col md={8} lg={6} xl={5}>
+              <Card className="shadow-sm border-0 rounded-4 mx-auto" style={{ backgroundColor: 'white', width: '100%', maxWidth: '520px' }}>
+                <Card.Body className="p-4 p-sm-5">
+                  <div className="text-center mb-3">
+                    <div 
+                      className="d-inline-flex align-items-center justify-content-center shadow-sm rounded-circle"
+                      style={{ 
+                        width: '65px', 
+                        height: '65px', 
+                        backgroundColor: '#E8F5E9',
+                        color: '#0A5C2A',
+                        border: '2px solid rgba(10, 92, 42, 0.15)',
+                        animation: 'floatCard 4s ease-in-out infinite'
+                      }}
+                    >
 
-                  <Form.Group className="mb-3" controlId="formPassword">
-                    <div className="d-flex justify-content-between align-items-center">
-                      <Form.Label className="fw-medium text-secondary small mb-0">Mot de passe</Form.Label>
-                      <Link to="/forgot-password" style={{ fontSize: '0.85rem', color: '#0A5C2A' }} className="text-decoration-none">
-                        Mot de passe oublié ?
-                      </Link>
+                      <img src={logo} alt="Logo" style={{ width: '75px', height: '75px', objectFit: 'contain' }} />
                     </div>
-                    <Form.Control 
-                      type="password" 
-                      placeholder="••••••••" 
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="py-2 mt-1"
-                    />
-                  </Form.Group>
-                  <Button 
-                    type="submit" 
-                    disabled={loading}
-                    className="w-100 py-2 fw-medium rounded-2 shadow-sm mt-3 border-0"
-                    style={{ backgroundColor: '#0A5C2A' }}
-                  >
-                    {loading ? 'Connexion en cours...' : 'Se connecter'}
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
-            <div className="text-center mt-4">
-              <p className="text-muted small">
-                Vous n'avez pas de compte ?{' '}
-                <Link to="/contact" className="text-decoration-none fw-semibold" style={{ color: '#0A5C2A' }}>
-                  Contactez l'administrateur
-                </Link>
-              </p>
-              <p className="text-muted" style={{ fontSize: '0.8rem' }}>
-                <Link to="/" className="text-decoration-none text-secondary">
-                  ← Retour à l'accueil
-                </Link>
-              </p>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+                  </div>
+                  <div className="text-center mb-4">
+                    <h3 className="fw-bold text-dark">Connectez-vous à votre Portail</h3>
+                    <p className="text-muted small">
+                      Entrez vos identifiants d'entreprise pour accéder à vos espaces de travail, ressources et services
+                    </p>
+                  </div>
+                  <Form onSubmit={handleLoginSubmit}>
+                    <Form.Group className="mb-3 text-start" controlId="formEmail">
+                      <Form.Label className="fw-bold text-dark small text-start d-block">
+                        Nom d'utilisateur / Email professionnel
+                      </Form.Label>
+                      <Form.Control.Feedback type="invalid" />
+                          <div className="input-group custom-input-group overflow-hidden">
+                              <span className="input-group-text bg-transparent border-0 text-muted ps-3 input-icon">
+                                <User size={18} />
+                              </span>
+                              <Form.Control 
+                                type="email" 
+                                placeholder="prenom.nom@entreprise.com" 
+                                className="py-2 border-0 shadow-none ps-0 bg-transparent"
+                              />
+                            </div>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formPassword">
+                      <div className="d-flex justify-content-between align-items-center mb-1">
+                        <Form.Label className="fw-bold text-dark small mb-0">Mot de passe</Form.Label>
+                        <Link to="/forgot-password" style={{ fontSize: '0.85rem', color: '#0A5C2A' }} className="text-decoration-none">
+                          Mot de passe oublié ?
+                        </Link>
+                      </div>
+                      <div className="input-group custom-input-group overflow-hidden">
+                        <span className="input-group-text bg-white border-end-0 text-muted ps-3 input-icon">
+                          <Lock size={18} />
+                        </span>
+                        <Form.Control 
+                          type={showPassword ? "text" : "password"} 
+                          placeholder="Saisissez votre mot de passe" 
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                          className="py-2 border-start-0 border-end-0 ps-0 shadow-none"
+                        />
+                        <span 
+                          className="input-group-text bg-white border-start-0 text-muted pe-3" 
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </span>
+                      </div>
+                    </Form.Group>
+
+                  <div className="mt-4">
+                      <StarButton disabled={loading}>
+                        {loading ? 'Connexion en cours...' : 'Se connecter'}
+                      </StarButton>
+                    </div>
+                  </Form>
+
+                  <hr className="my-4 text-muted opacity-25" />
+                  <div className="d-flex justify-content-between align-items-center px-1">
+                    <Link to="/forgot-password" className="text-decoration-none text-muted small lh-sm">
+                      Problème de<br />connexion ?
+                    </Link>
+                    <div className="vr mx-2" style={{ height: '32px', width: '1px', backgroundColor: '#dee2e6' }}></div>
+                    <Link to="/register" className="text-decoration-none fw-semibold small lh-sm text-end" style={{ color: '#0A5C2A' }}>
+                      S'inscrire (Nouveau<br />collaborateur)
+                    </Link>
+                  </div>
+                </Card.Body>
+              </Card>
+
+              <div className="text-center mt-4">
+                  <Link to="/" className="back-home-badge">
+                    <ArrowLeft size={16} className="arrow-icon" />
+                    <span>Retour à l'accueil du portail</span>
+                  </Link>
+                </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </div>
   )
 }
